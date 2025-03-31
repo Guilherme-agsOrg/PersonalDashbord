@@ -3,6 +3,21 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Colors to project */
+  --color-amethystSmoke-50: #f8f8fa;
+  --color-amethystSmoke-100: #f2f2f5;
+  --color-amethystSmoke-200: #e8e6ee;
+  --color-amethystSmoke-300: #d5d2e0;
+  --color-amethystSmoke-400: #bdb8cd;
+  --color-amethystSmoke-500: #a59cb8;
+  --color-amethystSmoke-600: #9083a4;
+  --color-amethystSmoke-700: #7e7091;
+  --color-amethystSmoke-800: #685e79;
+  --color-amethystSmoke-900: #574e64;
+  --color-amethystSmoke-950: #383342;
+
+
 }
 
 @theme inline {
@@ -16,6 +31,19 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+
+      /* Colors to project */
+    --color-amethyst-smoke-50: #f8f8fa;
+    --color-amethyst-smoke-100: #f2f2f5;
+    --color-amethyst-smoke-200: #e8e6ee;
+    --color-amethyst-smoke-300: #d5d2e0;
+    --color-amethyst-smoke-400: #bdb8cd;
+    --color-amethyst-smoke-500: #a59cb8;
+    --color-amethyst-smoke-600: #9083a4;
+    --color-amethyst-smoke-700: #7e7091;
+    --color-amethyst-smoke-800: #685e79;
+    --color-amethyst-smoke-900: #574e64;
+    --color-amethyst-smoke-950: #383342;
   }
 }
 

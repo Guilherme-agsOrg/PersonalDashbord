@@ -15,27 +15,24 @@ export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement>{
 
 export default function TextInput({ label, icon, iconLeft, error, ...props }: TextInputProps){
     return (
-        <div className={`
-            flex flex-col justify-center p-2
-            `
-        }>
+        <div className={"flex flex-col justify-center p-2 w-full"}>
             {label && 
-                <label className="text-[var(--color-amethystSmoke-800)] text-sm font-semibold">
+                <label className="text-[var(--color-heavy-metal-700)] text-sm font-semibold">
                     {label}
                 </label>
             }
 
             <div className={`
                 flex rounded-lg p-2
-                bg-[var(--color-amethystSmoke-300)] text-stone-700
-                focus-within:bg-[var(--color-amethystSmoke-400)]
+                bg-zinc-300 text-stone-700
+                focus-within:bg-[var(--color-heavy-metal-200)]
             `}>
                 {(icon && iconLeft) && <span className="text-stone-700">{icon}</span>}
-                <input className="focus:outline-none" {...props}/>
+                <input className="focus:outline-none w-full" {...props}/>
                 {(icon && !iconLeft) && <span className="text-stone-700">{icon}</span>}
             </div>
 
-            {error && <p className="text-red-500">{error}</p>}
+            {error && <p className="text-red-400">{error}</p>}
         </div>
     )
 }

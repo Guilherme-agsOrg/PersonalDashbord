@@ -1,7 +1,6 @@
-import { ReactElement } from "react"
+import { ButtonHTMLAttributes, ReactElement } from "react"
 
-export interface ButtonProps{
-    onClick?: () => void
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
     icon?: ReactElement
     text?: string
     bigger?: boolean
@@ -31,23 +30,24 @@ const colors = {
     zinc:'bg-zinc-400 text-stone-900 hover:bg-zinc-500',
     neutral:'bg-neutral-400 text-stone-900 hover:bg-neutral-500',
     stone:'bg-stone-400 text-stone-900 hover:bg-stone-500',
-    amethystSmoke:'bg-[var(--color-amethystSmoke-400)] text-stone-900 hover:bg-[var(--color-amethystSmoke-500)]'
+    amethystSmoke:'bg-[var(--color-amethyst-smoke-400)] text-stone-900 hover:bg-[var(--color-amethyst-smoke-500)]',
+    heavyMetal:'bg-[var(--color-heavy-metal-400)] text-zinc-200 hover:bg-[var(--color-heavy-metal-500)]'
 } as const;
 
 export default function Button(props: ButtonProps) {
 
-    const buttonColor = props.color && colors[props.color] ? colors[props.color] : 'bg-black text-white hover:bg-black';
+    const buttonColor = props.color && colors[props.color] ? colors[props.color] : 'bg-black text-zinc-200 hover:bg-black';
 
     return (
         <button 
             className={`
-                flex items-center justify-center rounded-lg text-lg w-3/12 gap-2
+                flex items-center justify-center rounded-lg text-lg w-full gap-2
                 ${buttonColor}
                 ${props.bigger ? 'px-7 py-2.5 text-xl' : 'px-5 py-1.5'}
             `}
             onClick={props.onClick}
         >
-            {props.icon && <span className="text-stone-900">{props.icon}</span>}
+            {props.icon && <span className="text-zinc-200">{props.icon}</span>}
             {props.text}
         </button>
     )

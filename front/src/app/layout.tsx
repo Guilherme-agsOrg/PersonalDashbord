@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/components/auth/AuthProvider";
 
 const fontRoboto = Roboto({
   subsets: ["latin"],
@@ -12,11 +13,7 @@ export const metadata: Metadata = {
   description: "Personal Dashboard app",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
   return (
     <html lang="en">
     <body
@@ -24,7 +21,9 @@ export default function RootLayout({
         ${fontRoboto.variable}
         antialiased`}
     >
-      {children}
+      <AuthProvider>
+        {children}
+      </AuthProvider>
     </body>
   </html>
   );

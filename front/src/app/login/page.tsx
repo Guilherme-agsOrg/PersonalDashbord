@@ -1,15 +1,20 @@
 'use client';
+import { useAuth } from "@/components/auth/AuthProvider";
 import Button from "@/components/UI/Button";
 import TextInput from "@/components/UI/TextInput";
 import { Enum } from "@/lib/Enum";
+import { DecodedToken } from "@/lib/Token";
+import { login } from "@/services/authService";
 import { IconEye } from "@tabler/icons-react";
 import { IconEyeClosed } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function LoginPage() {
-
+  const router = useRouter();
+  const { setUser } = useAuth() as { setUser: (user: DecodedToken) => void };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -17,13 +22,14 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const response = await fetch("/api/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      headers: { "Content-Type": "application/json" },
-    });
-    const data = await response.json();
-    console.log(data);
+    try {
+      const response = await login(email, password);
+      setUser(response.data);
+      router.push("/dashboard");
+    } 
+    catch (error: unknown) {
+      console.error("Login failed:", error);
+    }
   };
 
   return (

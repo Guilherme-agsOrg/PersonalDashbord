@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-    const token = localStorage.getItem("accessToken"); // Verify if access Token must contain the project name
+    const token = localStorage.getItem("accessToken");
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
 });
@@ -16,10 +16,13 @@ api.interceptors.response.use(
         const original = error.config;
         if (error.response.status === 401 && !original._retry){
             original._retry = true;
-            const refreshToken = localStorage.getItem("refreshToken"); // Verify if access Token must contain the project name
+
+            const refreshToken = localStorage.getItem("refreshToken");
             const responseRefresh = await axios.post(`${api.defaults.baseURL}/auth/refresh`, {refreshToken});
+
             localStorage.setItem("accessToken", responseRefresh.data.accessToken);
             localStorage.setItem("refreshToken", responseRefresh.data.refreshToken);
+
             original.headers.Authorization = `Bearer ${responseRefresh.data.accessToken}`;
             return axios(original);
         }

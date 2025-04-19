@@ -7,9 +7,14 @@ import { IconEyeClosed } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { register } from "@/services/authService";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/auth/AuthProvider";
+import { DecodedToken } from "@/lib/Token";
 
 export default function LoginPage() {
-
+  const router = useRouter();
+  const { setUser } = useAuth() as { setUser: (user: DecodedToken) => void };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -19,14 +24,14 @@ export default function LoginPage() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const response = await fetch("/api/register", {
-      method: "POST",
-      body: JSON.stringify({ email, password, confirmPassword }),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    const data = await response.json();
-    console.log(data);
+    try {
+      const response = await register(email, password, confirmPassword);
+      setUser(response.data);
+      router.push("/dashboard");
+    } 
+    catch (error: unknown) {
+      console.error("Register failed:", error);
+    }
   };
 
   return (

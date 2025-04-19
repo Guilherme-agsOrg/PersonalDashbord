@@ -1,10 +1,11 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuth } from "./AuthProvider";
+import { DecodedToken } from "@/lib/Token";
 
 // HOC or wrapper to protect pages
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
-    const { user } = useAuth() as { user: string };
+    const { user } = useAuth() as { user: DecodedToken };
     const router = useRouter();
 
     useEffect(() => {
@@ -12,6 +13,10 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
             router.push("/login");
         }
     }, [user, router]);
+
+    if (!user) {
+        return null; // or <LoadingSpinner /> if you want to display a loader
+    }
 
     return <>{user && children}</>;
 }

@@ -1,16 +1,21 @@
-'use client'
+import { DecodedToken, decodeToken } from "@/lib/Token";
 import { createContext, useContext, useEffect, useState } from "react";
 
-export const AuthContext = createContext<{ user: string; setUser: (user: string) => void } | null>(null);
+interface AuthContextType {
+    user: DecodedToken | null;
+    setUser: (user: DecodedToken | null) => void;
+  }
+
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 // Provider with authentication context
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState<DecodedToken | null>(null);
 
     useEffect(() => {
-        const token = localStorage.getItem("accessToken"); // Verify if access Token must contain the project name
+        const token = localStorage.getItem("accessToken"); 
         if (token) {
-            setUser(JSON.parse(token));
+            setUser(decodeToken(token));
         }
     }, []);
 

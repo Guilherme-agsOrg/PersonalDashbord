@@ -3,7 +3,7 @@ import { useAuth } from "@/components/auth/AuthProvider";
 import Button from "@/components/UI/Button";
 import TextInput from "@/components/UI/TextInput";
 import { Enum } from "@/lib/Enum";
-import { DecodedToken } from "@/lib/Token";
+import { UserAuthenticatedData } from "@/lib/Token";
 import { login } from "@/services/authService";
 import { IconEye } from "@tabler/icons-react";
 import { IconEyeClosed } from "@tabler/icons-react";
@@ -14,14 +14,19 @@ import { useState } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { setUser } = useAuth() as { setUser: (user: DecodedToken) => void };
+  const { setUser } = useAuth() as { setUser: (user: UserAuthenticatedData) => void };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (isSubmitting) return; // Prevent multiple submissions
+    
+    setIsSubmitting(true);
     try {
       const response = await login(email, password);
       setUser(response.data);
@@ -76,7 +81,7 @@ export default function LoginPage() {
                   />
               </div>
               <div className="flex flex-col items-center justify-center">
-                <Button color="heavyMetal" onClick={handleLogin} text={"Login"} icon={<IconEye/>}/>
+                <Button color="heavyMetal" onClick={handleLogin} disabled={isSubmitting} text={"Login"} icon={<IconEye/>}/>
               </div>
             </form>
           </div>

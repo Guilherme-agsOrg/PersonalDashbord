@@ -5,6 +5,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
     text?: string
     bigger?: boolean
     color?: keyof typeof colors;
+    disabled?: boolean
 }
 
 const colors = {
@@ -46,6 +47,7 @@ export default function Button(props: ButtonProps) {
                 ${props.bigger ? 'px-7 py-2.5 text-xl' : 'px-5 py-1.5'}
             `}
             onClick={props.onClick}
+            disabled={props.disabled}
         >
             {props.icon && <span className="text-zinc-200">{props.icon}</span>}
             {props.text}

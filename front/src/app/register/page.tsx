@@ -10,20 +10,24 @@ import { useState } from "react";
 import { register } from "@/services/authService";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/auth/AuthProvider";
-import { DecodedToken } from "@/lib/Token";
+import { UserAuthenticatedData } from "@/lib/Token";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { setUser } = useAuth() as { setUser: (user: DecodedToken) => void };
+  const { setUser } = useAuth() as { setUser: (user: UserAuthenticatedData) => void };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (isSubmitting) return; // Prevent multiple submissions
+    
+    setIsSubmitting(true);
     try {
       const response = await register(email, password, confirmPassword);
       setUser(response.data);
@@ -88,7 +92,7 @@ export default function LoginPage() {
                 />
               </div>
               <div className="flex flex-col items-center justify-center">
-                <Button color="heavyMetal" onClick={handleRegister} text={"Register"} icon={<IconEye/>}/>
+                <Button color="heavyMetal" onClick={handleRegister} disabled={isSubmitting} text={"Register"} icon={<IconEye/>}/>
               </div>
             </form>
           </div>

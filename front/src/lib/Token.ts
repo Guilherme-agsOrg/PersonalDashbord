@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 
-export interface DecodedToken {
+export interface UserAuthenticatedData {
     id: string;
     email: string;
     name: string;
@@ -8,6 +8,6 @@ export interface DecodedToken {
     // claims, ex: roles, id, etc.
 }
 
-export function decodeToken(token: string): DecodedToken {
+export function decodeToken(token: string): UserAuthenticatedData {
   return jwtDecode(token);
 }

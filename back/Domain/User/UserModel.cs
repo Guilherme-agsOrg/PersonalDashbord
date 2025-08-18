@@ -1,4 +1,4 @@
-using back.Auth;
+using back.Domain.Auth;
 
 namespace back.Domain.User;
 

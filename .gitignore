@@ -17,3 +17,5 @@ back/.vs/back/v17/DocumentLayout.json
 back/.vs/ProjectEvaluation/back.metadata.v9.bin
 back/.vs/ProjectEvaluation/back.projects.v9.bin
 back/.vs/ProjectEvaluation/back.strings.v9.bin
+back/bin/
+back/obj/

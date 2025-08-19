@@ -1,5 +1,3 @@
-using back.Domain.User;
-using back.Infrastructure.Data;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

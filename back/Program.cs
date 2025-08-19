@@ -3,6 +3,7 @@ using back.Infrastructure.Data;
 using back.Domain.User;
 using back.Domain.Auth;
 using back.Infrastructure.Repository;
+using back.Middleware;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,8 @@ builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
 var app = builder.Build();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 // Activate Swagger documentation
 if (app.Environment.IsDevelopment())

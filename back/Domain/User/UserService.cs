@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace back.Domain.User;
 
-public class UserService(AuthService authService, IAuthRepository authRepository, IUserRepository userRepository, IPasswordHasher<User> passwordHasher) : IUserService
+public class UserService(IUserRepository userRepository, IAuthService authService, IAuthRepository authRepository, IPasswordHasher<User> passwordHasher) : IUserService
 {
     public async Task<AuthResponse> RegisterAsync(RegisterRequest request)
     {

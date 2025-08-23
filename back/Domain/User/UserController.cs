@@ -6,14 +6,13 @@ namespace back.Domain.User;
 
 [ApiController]
 [Route("users")]
-public class UserController(UserService userService) : ControllerBase
+public class UserController(IUserService userService) : ControllerBase
 {
-    private readonly UserService _userService = userService;
 
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-        var response = await _userService.RegisterAsync(request);
+        var response = await userService.RegisterAsync(request);
         
         Response.Cookies.Append("accessToken", response.AccessToken, new CookieOptions
         {
@@ -37,7 +36,7 @@ public class UserController(UserService userService) : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        var response = await _userService.LoginAsync(request);
+        var response = await userService.LoginAsync(request);
         
         Response.Cookies.Append("accessToken", response.AccessToken, new CookieOptions
         {
@@ -61,7 +60,7 @@ public class UserController(UserService userService) : ControllerBase
     [HttpPost("refresh")]
     public async Task<IActionResult> Refresh([FromBody] string refreshToken)
     {
-        var response = await _userService.RefreshTokenAsync(refreshToken);
+        var response = await userService.RefreshTokenAsync(refreshToken);
         
         Response.Cookies.Append("accessToken", response.AccessToken, new CookieOptions
         {
@@ -86,7 +85,7 @@ public class UserController(UserService userService) : ControllerBase
     [HttpPost("logout")]
     public async Task<IActionResult> Logout([FromBody] string refreshToken)
     {
-        await _userService.LogoutAsync(refreshToken);
+        await userService.LogoutAsync(refreshToken);
         return NoContent();
     }
 

@@ -1,11 +1,11 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuth } from "./AuthProvider";
-import { DecodedToken } from "@/lib/Token";
+import { UserAuthenticatedData } from "@/lib/Token";
 
 // HOC or wrapper to protect pages
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
-    const { user } = useAuth() as { user: DecodedToken };
+    const { user } = useAuth() as { user: UserAuthenticatedData };
     const router = useRouter();
 
     useEffect(() => {

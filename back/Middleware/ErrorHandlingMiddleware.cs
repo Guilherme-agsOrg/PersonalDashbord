@@ -20,7 +20,7 @@ public class ErrorHandlingMiddleware(RequestDelegate next, ILogger<ErrorHandling
 
             var response = env.IsDevelopment()
                 ? new { message = ex.Message, details = ex.StackTrace }
-                : new { message = "An internal server error has occurred.", details = "" };
+                : new { message = "An internal server error has occurred.", details = "Do not have." };
 
             var jsonResponse = JsonSerializer.Serialize(response);
             await context.Response.WriteAsync(jsonResponse);

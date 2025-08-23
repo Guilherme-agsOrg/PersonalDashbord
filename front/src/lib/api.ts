@@ -9,11 +9,21 @@ api.interceptors.response.use(
     response => response,
     async (error) => {
         const original = error.config;
-        if (error.response.status === 401 && !original._retry){
+
+        if (error.response && error.response.status === 401 && !original._retry) {
             original._retry = true;
-            await axios.post(`${api.defaults.baseURL}/auth/refresh`, {withCredentials: true});
-            return axios(original);
+            
+            try {
+                // Try to refresh the token
+                await api.post('/users/refresh'); 
+                //Return the original request to be retried
+                return api(original);
+            } 
+            catch (refreshError) {
+                return Promise.reject(refreshError);
+            }
         }
+
         return Promise.reject(error);
     }
 );

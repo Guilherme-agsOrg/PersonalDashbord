@@ -2,19 +2,19 @@ import api from "@/lib/api";
 import { UserAuthenticatedData } from "@/lib/Token";
 
 export async function login(email: string, password: string) {
-    const response = await api.post('/auth/login', { email, password });
+    const response = await api.post('/users/login', { email, password });
 
     return response.data;
 }
 
 export async function register(email: string, password: string, confirmPassword: string) {
-    const response = await api.post('/auth/register', { email, password, confirmPassword });
+    const response = await api.post('/users/register', { email, password, confirmPassword });
 
     return response.data;
 }
 
 export async function logout() {
-    const response = await api.post('/auth/logout');
+    const response = await api.post('/users/logout');
 
     return response.data;
 }

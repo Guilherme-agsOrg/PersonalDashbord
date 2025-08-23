@@ -1,3 +1,4 @@
+"use client"
 import { UserAuthenticatedData } from "@/lib/Token";
 import { getMe } from "@/services/authService";
 import { createContext, useContext, useEffect, useState } from "react";
